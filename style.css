@@ -169,21 +169,37 @@ html, body {
 }
 
 /* Controle de Visibilidade por Página */
-.pg3-only, .pg4-only, .pg5-only {
+.pg3-only, .pg4-only, .pg5-only, .intro-only, .menu-only, .pg-chopp-only {
   display: none !important;
 }
 
+/* Página de Introdução / Boas-Vindas */
+body.pg-intro .intro-only,
+body.pg3 .intro-only,
 body.pg3 .pg3-only {
   display: block !important;
 }
+body.pg-intro a.countdown-box.intro-only,
 body.pg3 a.countdown-box.pg3-only {
   display: flex !important;
 }
+body.pg-intro .event-date-label.intro-only,
 body.pg3 .event-date-label.pg3-only {
   display: flex !important;
 }
-body.pg3 .address-overlay.pg3-only {
+body.pg-intro .intro-card-trigger.intro-only,
+body.pg3 .intro-card-trigger.pg3-only {
   display: flex !important;
+}
+
+/* Menu Principal com os 5 Medalhões */
+body.pg-menu .menu-only {
+  display: block !important;
+}
+
+/* Página Chopp no Barril */
+body.pg-chopp .pg-chopp-only {
+  display: block !important;
 }
 
 body.pg4 .pg4-only {
@@ -2148,5 +2164,307 @@ body.pg5 .btn-gift-list.pg5-only {
   font-weight: 500;
   font-style: italic;
 }
+
+/* ============================================================
+   GATILHO DO CARD DE INTRODUÇÃO & MÃOZINHA FANTASMA (5s DELAY)
+   ============================================================ */
+
+.intro-card-trigger {
+  position: absolute;
+  left: 8%;
+  top: 52%;
+  width: 84%;
+  height: 46%;
+  z-index: 9999;
+  pointer-events: auto !important;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Container da Mãozinha Fantasma - Surge após 5 segundos para não cobrir o texto */
+.ghost-hand-container {
+  opacity: 0;
+  pointer-events: none;
+  animation: ghostAppear 1.2s ease 5s forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes ghostAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ghost-hand-icon {
+  font-size: 32px;
+  line-height: 1;
+  filter: grayscale(1) opacity(0.4) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+  animation: ghostTap 2s ease-in-out 5s infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+  user-select: none;
+}
+
+.ghost-hand-hint {
+  display: none !important;
+}
+
+@keyframes ghostTap {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.08);
+    opacity: 0.6;
+    filter: grayscale(1) opacity(0.55) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+  }
+}
+
+/* ============================================================
+   MODAL DO CHOPP NO BARRIL
+   ============================================================ */
+
+.chopp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100015;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.chopp-modal.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.chopp-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 8, 22, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.chopp-modal-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 380px;
+  background: radial-gradient(circle at top, #fff7fa 0%, #fdf2f8 50%, #fae8f2 100%);
+  border: 2px solid #e2a5a5;
+  border-radius: 26px;
+  padding: 24px 20px 20px;
+  box-shadow: 0 20px 50px rgba(50, 10, 30, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.chopp-modal.active .chopp-modal-card {
+  transform: scale(1);
+}
+
+.chopp-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(226, 165, 165, 0.6);
+  background: rgba(255, 255, 255, 0.8);
+  color: #5d253f;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.chopp-modal-close:hover {
+  background: #fce7f3;
+  transform: scale(1.08);
+}
+
+.chopp-modal-icon {
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.chopp-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #4a152d;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.chopp-modal-sub {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: #9d486f;
+  margin-bottom: 12px;
+}
+
+.chopp-modal-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: #502b12;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.chopp-modal-qr-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.chopp-modal-qr {
+  background: #ffffff;
+  border: 1.5px solid #e2a5a5;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 4px 14px rgba(74, 21, 45, 0.12);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.chopp-modal-qr:hover, .chopp-modal-qr:active {
+  transform: scale(1.04);
+}
+
+.chopp-modal-qr img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  display: block;
+}
+
+.chopp-modal-qr-hint {
+  font-family: 'Cinzel', serif;
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #8b3c62;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.chopp-modal-pix-box {
+  flex: 1;
+  max-width: 190px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px dashed #db2777;
+  border-radius: 16px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.chopp-modal-pix-box:hover, .chopp-modal-pix-box:active {
+  background: #fdf2f8;
+  transform: scale(1.02);
+}
+
+.chopp-modal-pix-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #8b3c62;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.chopp-modal-pix-num {
+  font-family: 'Segoe UI', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: #4a152d;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.chopp-modal-pix-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #db2777;
+  font-weight: 600;
+}
+
+.chopp-modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-chopp-action {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 12px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-chopp-action:active {
+  transform: scale(0.96);
+}
+
+.btn-chopp-copy {
+  background: linear-gradient(135deg, #e2a5a5 0%, #be185d 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(190, 24, 93, 0.35);
+}
+
+.btn-chopp-bank {
+  background: #ffffff;
+  color: #8b3c62;
+  border: 1.5px solid #e2a5a5;
+  box-shadow: 0 4px 12px rgba(74, 21, 45, 0.08);
+}
+
 
 

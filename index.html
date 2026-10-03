@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=17">
 </head>
 
 <body>
@@ -37,20 +37,22 @@
       <button id="skipIntroBtn" type="button" aria-label="Pular abertura">Pular abertura</button>
 
       <!-- Páginas do Convite -->
-      <img id="pd3" class="pageMedia fade-transition" src="pagina3.jpg" alt="Página 3 - Giovana Meus 15 Anos">
-      <img id="pd4" class="pageMedia fade-transition" src="pagina4.jpg?v=3" alt="Página 4 - Mensagem aos Convidados">
+      <img id="pdIntro" class="pageMedia fade-transition" src="pagina_intro.jpg?v=2" alt="Página de Abertura - Giovana Meus 15 Anos">
+      <img id="pdMenu" class="pageMedia fade-transition" src="pagina_menu.jpg?v=2" alt="Menu Interativo - Giovana Meus 15 Anos">
+      <img id="pd4" class="pageMedia fade-transition" src="pagina4.jpg?v=5" alt="Página 4 - Manual do Convidado">
       <img id="pd5" class="pageMedia fade-transition" src="pagina5.jpg?v=2" alt="Página 5 - Lista de Presentes e Chave Pix">
+      <img id="pdChopp" class="pageMedia fade-transition" src="pagina_chopp.jpg?v=2" alt="Página Chopp no Barril - Giovana 15 Anos">
 
       <!-- Camada de Botões Interativos -->
       <div class="btnLayer">
-        <!-- PÁGINA 3: Contagem Regressiva e 4 Medalhões (MAPA, FOTOS, PRESENTES, RSVP) -->
-        <a id="eventDateLabel" class="event-date-label pg3-only"
+        <!-- TELA 1: INTRODUÇÃO / BOAS-VINDAS (Contagem Regressiva e Card de Mensagem) -->
+        <a id="eventDateLabel" class="event-date-label intro-only pg3-only"
           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%F0%9F%A6%8B%20Giovana%20-%2015%20Anos&dates=20261212T200000/20261213T010000&ctz=America/Sao_Paulo&details=Festa%20de%2015%20Anos%20da%20Giovana!%20%E2%9C%A8%0AVenha%20comemorar%20esse%20momento%20t%C3%A3o%20especial%20conosco!%0A%0ALocal%3A%20R.%20Carlos%20Bel%C3%A3o%2C%20570%20-%20Vila%20Juliana%2C%20Piraquara%20-%20PR&location=R.%20Carlos%20Bel%C3%A3o%2C%20570%20-%20Vila%20Juliana%2C%20Piraquara%20-%20PR"
           target="_blank" rel="noopener" aria-label="Marcar 12 de Dezembro às 20h na agenda">
           <span class="event-date-text">12 de Dezembro de 2026 às 20h</span>
         </a>
 
-        <a id="btnCountdown" class="btn-inv js-countdown countdown-box pg3-only" href="#" onclick="return false;"
+        <a id="btnCountdown" class="btn-inv js-countdown countdown-box intro-only pg3-only" href="#" onclick="return false;"
           aria-label="Contagem regressiva até o evento">
           <span class="countdown-inner">
             <span class="countdown-unit">
@@ -81,96 +83,63 @@
           </span>
         </a>
 
-
-        <!-- 4 Ícones na Página 3 -->
-        <!-- 1. MAPA (Superior Esquerda) -->
-        <a id="btnMaps" class="btn-inv pg3-only" href="#" target="_blank" rel="noopener"
-          aria-label="Ver localização no Google Maps" style="left:21%; top:57.5%; width:25%; height:15%;"></a>
-
-        <!-- 2. FOTOS / CÂMERA (Superior Direita - Upload Google Drive) -->
-        <a id="btnPhotos" class="btn-inv pg3-only" href="#" target="_blank" rel="noopener"
-          aria-label="Abrir álbum e enviar fotos no Google Drive"
-          style="left:54%; top:57.5%; width:25%; height:15%;"></a>
-
-        <!-- 3. PRESENTES (Inferior Esquerda) -->
-        <a id="btnGifts" class="btn-inv pg3-only" href="#" onclick="mostrarPg5(); return false;"
-          aria-label="Lista de presentes e Chave Pix" style="left:21%; top:75%; width:25%; height:15%;"></a>
-
-        <!-- 4. MANUAL DO CONVIDADO (Inferior Direita) -->
-        <a id="btnRSVP" class="btn-inv pg3-only" href="#" onclick="mostrarPg4(); return false;"
-          aria-label="Manual do Convidado" style="left:54%; top:75%; width:25%; height:15%;"></a>
-
-        <!-- PÁGINA 4: Botão Voltar -->
-        <a id="btnBackPg4" class="btn-inv pg4-only" href="#" onclick="voltarNavegacao(); return false;"
-          aria-label="Voltar para o convite" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
-
-        <!-- Card Expansível do Chopp na Página 4 (Abaixo do Card Principal) -->
-        <div id="choppCard" class="chopp-card-container pg4-only">
-          <button type="button" id="btnToggleChopp" class="chopp-card-header" onclick="toggleChoppCard()" aria-expanded="false" aria-controls="choppCardBody">
-            <div class="chopp-header-left">
-              <span class="chopp-header-icon">🍺</span>
-              <div class="chopp-header-text">
-                <span class="chopp-header-title">CHOPP GELADO NO BARRIL</span>
-                <span class="chopp-header-sub">Toque para ver o Pix da rodada ✨</span>
-              </div>
-            </div>
-            <div class="chopp-header-arrow">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-          </button>
-
-          <div id="choppCardBody" class="chopp-card-body" aria-hidden="true">
-            <div class="chopp-body-inner">
-              <p class="chopp-message">
-                Teremos choop gelado e direto da torneira, se quiser contribuir com a rodada e dar aquela força no barril o pix é esse:
-              </p>
-              
-              <div class="chopp-middle-row">
-                <div class="chopp-qr-box" onclick="copiarPix('060341299-82')" role="button" tabindex="0" title="QR Code Pix - Toque para copiar">
-                  <img src="pix_qrcode.png" alt="QR Code Pix 060341299-82" class="chopp-qr-img" />
-                  <span class="chopp-qr-hint">QR CODE PIX</span>
-                </div>
-
-                <div class="chopp-pix-box" onclick="copiarPix('060341299-82')" role="button" tabindex="0" title="Toque para copiar a chave Pix">
-                  <div class="chopp-pix-tag">CHAVE PIX (CPF)</div>
-                  <div class="chopp-pix-num">060341299-82</div>
-                  <div class="chopp-pix-copy-badge">
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                    <span>Toque para copiar</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="chopp-action-buttons">
-                <button type="button" class="btn-chopp-action btn-chopp-copy" onclick="copiarPix('060341299-82')">
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                  </svg>
-                  <span>Copiar Pix</span>
-                </button>
-
-                <button type="button" class="btn-chopp-action btn-chopp-bank" onclick="abrirAppBanco('060341299-82')">
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  </svg>
-                  <span>Abrir no Banco</span>
-                </button>
-              </div>
-            </div>
+        <!-- Gatilho Interativo sobre o Card de Mensagem com a Mãozinha Fantasma (surge após 5s, sem texto) -->
+        <button type="button" id="introCardTrigger" class="btn-inv intro-card-trigger intro-only pg3-only" onclick="mostrarMenu();" aria-label="Abrir menu do convite">
+          <div class="ghost-hand-container">
+            <span class="ghost-hand-icon">👆</span>
           </div>
-        </div>
+        </button>
 
-        <!-- PÁGINA 5: Botão Voltar -->
+        <!-- TELA 2: MENU PRINCIPAL (5 Medalhões e Botão Voltar) -->
+        <!-- Botão Voltar do Menu (retorna para o convite/boas-vindas) -->
+        <a id="btnBackMenu" class="btn-inv menu-only" href="#" onclick="voltarNavegacao(); return false;"
+          aria-label="Voltar para a introdução" style="left:79%; top:2.3%; width:17%; height:9.5%;"></a>
+
+        <!-- 1. MAPA (Superior Esquerda) -->
+        <a id="btnMaps" class="btn-inv menu-only" href="#" target="_blank" rel="noopener"
+          aria-label="Ver localização no Google Maps" style="left:21.5%; top:35.0%; width:22%; height:14.5%;"></a>
+
+        <!-- 2. FOTOS (Superior Direita) -->
+        <a id="btnPhotos" class="btn-inv menu-only" href="#" target="_blank" rel="noopener"
+          aria-label="Abrir álbum e enviar fotos no Google Drive" style="left:56.5%; top:35.0%; width:22%; height:14.5%;"></a>
+
+        <!-- 3. PRESENTES (Meio Esquerda) -->
+        <a id="btnGifts" class="btn-inv menu-only" href="#" onclick="mostrarPg5(); return false;"
+          aria-label="Lista de presentes e Chave Pix" style="left:21.5%; top:52.5%; width:22%; height:14.5%;"></a>
+
+        <!-- 4. MANUAL DO CONVIDADO (Meio Direita) -->
+        <a id="btnRSVP" class="btn-inv menu-only" href="#" onclick="mostrarPg4(); return false;"
+          aria-label="Manual do Convidado" style="left:56.5%; top:52.5%; width:22%; height:15.5%;"></a>
+
+        <!-- 5. CHOPP NO BARRIL (Inferior Centro) -> Aponta para a Página do Chopp -->
+        <a id="btnChopp" class="btn-inv menu-only" href="#" onclick="mostrarPgChopp(); return false;"
+          aria-label="Página do Chopp no Barril" style="left:35%; top:69%; width:30%; height:16.5%;"></a>
+
+        <!-- PÁGINA 4: Botão Voltar (retorna ao Menu) -->
+        <a id="btnBackPg4" class="btn-inv pg4-only" href="#" onclick="voltarNavegacao(); return false;"
+          aria-label="Voltar para o menu" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
+
+        <!-- PÁGINA 5: Botão Voltar (retorna ao Menu) -->
         <a id="btnBackPg5" class="btn-inv pg5-only" href="#" onclick="voltarNavegacao(); return false;"
-          aria-label="Voltar para o convite" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
+          aria-label="Voltar para o menu" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
+
+        <!-- PÁGINA CHOPP: Botão Voltar (retorna ao Menu) -->
+        <a id="btnBackChopp" class="btn-inv pg-chopp-only" href="#" onclick="voltarNavegacao(); return false;"
+          aria-label="Voltar para o menu" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
+
+        <!-- PÁGINA CHOPP: Botão Copiar Chave Pix -->
+        <a id="btnCopyPixChopp" class="btn-inv pg-chopp-only" href="#" onclick="copiarPix('060341299-82'); return false;"
+          aria-label="Copiar Chave Pix do Chopp" style="left:22%; top:67.2%; width:56%; height:5.2%;"></a>
+
+        <!-- PÁGINA CHOPP: Botão Abrir no Banco -->
+        <a id="btnBankChopp" class="btn-inv pg-chopp-only" href="#" onclick="abrirAppBanco('060341299-82'); return false;"
+          aria-label="Abrir Chave Pix no Banco" style="left:22%; top:72.8%; width:56%; height:5.2%;"></a>
+
+        <!-- PÁGINA CHOPP: Toque no QR Code ou na Chave para Copiar -->
+        <a id="btnQrChopp" class="btn-inv pg-chopp-only" href="#" onclick="copiarPix('060341299-82'); return false;"
+          aria-label="Copiar Chave Pix pelo QR Code" style="left:33%; top:43%; width:34%; height:15%;"></a>
+        <a id="btnPixKeyChopp" class="btn-inv pg-chopp-only" href="#" onclick="copiarPix('060341299-82'); return false;"
+          aria-label="Copiar Chave Pix CPF" style="left:22%; top:60.5%; width:56%; height:6%;"></a>
 
         <!-- Card da Chave Pix na Página 5 (painel rosé dentro do card de vidro "Chave Pix") -->
         <div id="cardPixPage5" class="pg5-pix-card pg5-only" role="group" aria-label="Chave Pix para presente">
@@ -324,6 +293,58 @@
         <button type="button" class="btn-modal-confirm" onclick="confirmarReserva()">Confirmar Escolha ✨</button>
       </div>
     </div>
+  <!-- Modal do Chopp no Barril -->
+  <div id="choppModal" class="chopp-modal" aria-hidden="true">
+    <div class="chopp-modal-backdrop" onclick="fecharModalChopp()"></div>
+    <div class="chopp-modal-card" role="dialog" aria-modal="true" aria-labelledby="choppModalTitle">
+      <button type="button" class="chopp-modal-close" onclick="fecharModalChopp()" aria-label="Fechar">✕</button>
+      
+      <div class="chopp-modal-icon">🍺</div>
+      <h2 id="choppModalTitle" class="chopp-modal-title">CHOPP GELADO NO BARRIL</h2>
+      <p class="chopp-modal-sub">Toque para ver o Pix da rodada ✨</p>
+
+      <p class="chopp-modal-desc">
+        Teremos chopp gelado e direto da torneira! Se quiser contribuir com a rodada e dar aquela força no barril, o Pix é esse:
+      </p>
+
+      <div class="chopp-modal-qr-row">
+        <div class="chopp-modal-qr" onclick="copiarPix('060341299-82')" role="button" tabindex="0" title="QR Code Pix - Toque para copiar">
+          <img src="pix_qrcode.png" alt="QR Code Pix 060341299-82" width="100" height="100" />
+          <span class="chopp-modal-qr-hint">QR CODE PIX</span>
+        </div>
+
+        <div class="chopp-modal-pix-box" onclick="copiarPix('060341299-82')" role="button" tabindex="0" title="Toque para copiar a chave Pix">
+          <div class="chopp-modal-pix-tag">CHAVE PIX (CPF)</div>
+          <div class="chopp-modal-pix-num">060341299-82</div>
+          <div class="chopp-modal-pix-copy">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Toque para copiar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chopp-modal-actions">
+        <button type="button" class="btn-chopp-action btn-chopp-copy" onclick="copiarPix('060341299-82')">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copiar Pix</span>
+        </button>
+
+        <button type="button" class="btn-chopp-action btn-chopp-bank" onclick="abrirAppBanco('060341299-82')">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          </svg>
+          <span>Abrir no Banco</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Trilha de Música de Fundo -->
@@ -332,7 +353,7 @@
   <!-- Configurações e Scripts -->
   <script src="config.js?v=6" charset="UTF-8"></script>
   <script src="presentes.js?v=4" charset="UTF-8"></script>
-  <script src="main.js?v=9" charset="UTF-8"></script>
+  <script src="main.js?v=11" charset="UTF-8"></script>
 </body>
 
 </html>

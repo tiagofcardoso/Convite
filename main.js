@@ -10,9 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById("video");
   const skipIntroBtn = document.getElementById("skipIntroBtn");
   const mus = document.getElementById("mus");
-  const pd3 = document.getElementById("pd3");
+  const pdIntro = document.getElementById("pdIntro");
+  const pdMenu = document.getElementById("pdMenu");
   const pd4 = document.getElementById("pd4");
   const pd5 = document.getElementById("pd5");
+  const pdChopp = document.getElementById("pdChopp");
+  const choppModal = document.getElementById("choppModal");
   const phone = document.querySelector(".phone");
 
   // Aplicar link do Google Maps
@@ -87,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.style.display = "none";
       try { video.pause(); } catch (e) {}
     }
-    [pd3, pd4, pd5].forEach(el => {
+    [pdIntro, pdMenu, pd4, pd5, pdChopp].forEach(el => {
       if (el) {
         el.classList.remove("show");
         el.style.display = "none";
@@ -97,8 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============================================================
   // GERENCIAMENTO DE HISTÓRICO E NAVEGAÇÃO NATIVA (ANDROID / APPLE)
-  // Permite que o botão Voltar do sistema volte de página/modal
-  // sem sair do convite!
   // ============================================================
 
   let currentPage = 'capa';
@@ -110,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Limpar classes de página do body
   function clearPgClasses() {
-    document.body.classList.remove("pg3", "pg4", "pg5");
+    document.body.classList.remove("pg-intro", "pg-menu", "pg3", "pg4", "pg5", "pg-chopp");
   }
 
   // Mostrar Capa (inicial)
@@ -132,28 +133,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Mostrar Página 3 (Principal)
-  window.mostrarPg3 = function(pushHistory = true) {
-    if (pushHistory && currentPage !== 'pg3' && window.history) {
-      window.history.pushState({ page: 'pg3' }, '', '#convite');
+  // Mostrar Tela 1: Introdução / Boas-Vindas
+  window.mostrarIntro = function(pushHistory = true) {
+    if (pushHistory && currentPage !== 'intro' && window.history) {
+      window.history.pushState({ page: 'intro' }, '', '#convite');
     }
-    currentPage = 'pg3';
+    currentPage = 'intro';
     document.body.classList.add("started");
     hideSkipIntroBtn();
     clearPgClasses();
-    document.body.classList.add("pg3");
+    document.body.classList.add("pg-intro", "pg3");
     hideAllMedia();
-    if (pd3) {
-      pd3.style.display = 'block';
-      requestAnimationFrame(() => pd3.classList.add("show"));
-      updateBlurBg('pagina3.jpg');
+    if (pdIntro) {
+      pdIntro.style.display = 'block';
+      requestAnimationFrame(() => pdIntro.classList.add("show"));
+      updateBlurBg('pagina_intro.jpg');
     }
   };
 
-  // Mostrar Página 4 (Confirmação de Presença)
+  // Alias para retrocompatibilidade
+  window.mostrarPg3 = window.mostrarIntro;
+
+  // Mostrar Tela 2: Menu Principal (5 Medalhões)
+  window.mostrarMenu = function(pushHistory = true) {
+    if (pushHistory && currentPage !== 'menu' && window.history) {
+      window.history.pushState({ page: 'menu' }, '', '#menu');
+    }
+    currentPage = 'menu';
+    document.body.classList.add("started");
+    hideSkipIntroBtn();
+    clearPgClasses();
+    document.body.classList.add("pg-menu");
+    hideAllMedia();
+    if (pdMenu) {
+      pdMenu.style.display = 'block';
+      requestAnimationFrame(() => pdMenu.classList.add("show"));
+      updateBlurBg('pagina_menu.jpg');
+    }
+  };
+
+  // Mostrar Página 4 (Manual do Convidado)
   window.mostrarPg4 = function(pushHistory = true) {
     if (pushHistory && currentPage !== 'pg4' && window.history) {
-      window.history.pushState({ page: 'pg4' }, '', '#confirmacao');
+      window.history.pushState({ page: 'pg4' }, '', '#manual');
     }
     currentPage = 'pg4';
     document.body.classList.add("started");
@@ -164,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pd4) {
       pd4.style.display = 'block';
       requestAnimationFrame(() => pd4.classList.add("show"));
-      updateBlurBg('pagina4.jpg?v=3');
+      updateBlurBg('pagina4.jpg?v=4');
     }
   };
 
@@ -186,17 +208,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Voltar genérico utilizado pelos botões de tela (btnBackPg4, btnBackPg5, etc.)
+  // Mostrar Página Chopp no Barril
+  window.mostrarPgChopp = function(pushHistory = true) {
+    if (pushHistory && currentPage !== 'chopp' && window.history) {
+      window.history.pushState({ page: 'chopp' }, '', '#chopp');
+    }
+    currentPage = 'chopp';
+    document.body.classList.add("started");
+    hideSkipIntroBtn();
+    clearPgClasses();
+    document.body.classList.add("pg-chopp");
+    hideAllMedia();
+    if (pdChopp) {
+      pdChopp.style.display = 'block';
+      requestAnimationFrame(() => pdChopp.classList.add("show"));
+      updateBlurBg('pagina_chopp.jpg?v=2');
+    }
+  };
+
+  // Modal do Chopp
+  window.abrirModalChopp = function() {
+    if (choppModal) {
+      choppModal.classList.add("active");
+      choppModal.setAttribute("aria-hidden", "false");
+    }
+  };
+
+  window.fecharModalChopp = function() {
+    if (choppModal) {
+      choppModal.classList.remove("active");
+      choppModal.setAttribute("aria-hidden", "true");
+    }
+  };
+
+  // Fechar modal ao pressionar ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (choppModal && choppModal.classList.contains("active")) {
+        window.fecharModalChopp();
+      }
+    }
+  });
+
+  // Voltar genérico utilizado pelos botões de tela (btnBackMenu, btnBackPg4, btnBackPg5, btnBackChopp, etc.)
   window.voltarNavegacao = function() {
+    if (choppModal && choppModal.classList.contains("active")) {
+      window.fecharModalChopp();
+      return;
+    }
+    if (currentPage === 'pg4' || currentPage === 'pg5' || currentPage === 'chopp') {
+      window.mostrarMenu(true);
+      return;
+    }
+    if (currentPage === 'menu') {
+      window.mostrarIntro(true);
+      return;
+    }
+    if (currentPage === 'intro') {
+      window.mostrarCapa(true);
+      return;
+    }
     if (window.history && window.history.length > 1 && window.location.hash) {
       window.history.back();
     } else {
-      window.mostrarPg3(false);
+      window.mostrarIntro(false);
     }
   };
 
   // Ouvinte do evento 'popstate' do navegador / Android / iOS
   window.addEventListener('popstate', (e) => {
+    // 0. Se modal do chopp estiver aberto, fecha ele
+    if (choppModal && choppModal.classList.contains("active")) {
+      window.fecharModalChopp();
+      return;
+    }
+
     // 1. Se o modal de confirmação de reserva estiver aberto, fecha ele
     const confirmModal = document.getElementById("reserveConfirmModal");
     if (confirmModal && confirmModal.classList.contains("active")) {
@@ -225,12 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Navegação entre páginas do convite
     const state = e.state;
     if (state && state.page) {
-      if (state.page === 'pg3') {
-        window.mostrarPg3(false);
+      if (state.page === 'intro' || state.page === 'pg3') {
+        window.mostrarIntro(false);
+      } else if (state.page === 'menu') {
+        window.mostrarMenu(false);
       } else if (state.page === 'pg4') {
         window.mostrarPg4(false);
       } else if (state.page === 'pg5') {
         window.mostrarPg5(false);
+      } else if (state.page === 'chopp') {
+        window.mostrarPgChopp(false);
       } else if (state.page === 'capa') {
         window.mostrarCapa(false);
       }
@@ -240,22 +330,30 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!hash || hash === '#' || hash === '') {
         window.mostrarCapa(false);
       } else if (hash === '#convite') {
-        window.mostrarPg3(false);
-      } else if (hash === '#confirmacao') {
+        window.mostrarIntro(false);
+      } else if (hash === '#menu') {
+        window.mostrarMenu(false);
+      } else if (hash === '#manual' || hash === '#confirmacao') {
         window.mostrarPg4(false);
       } else if (hash === '#presentes') {
         window.mostrarPg5(false);
+      } else if (hash === '#chopp') {
+        window.mostrarPgChopp(false);
       }
     }
   });
 
   // Restaurar página correta se houver hash na inicialização
   if (window.location.hash === '#convite') {
-    setTimeout(() => window.mostrarPg3(false), 50);
-  } else if (window.location.hash === '#confirmacao') {
+    setTimeout(() => window.mostrarIntro(false), 50);
+  } else if (window.location.hash === '#menu') {
+    setTimeout(() => window.mostrarMenu(false), 50);
+  } else if (window.location.hash === '#confirmacao' || window.location.hash === '#manual') {
     setTimeout(() => window.mostrarPg4(false), 50);
   } else if (window.location.hash === '#presentes') {
     setTimeout(() => window.mostrarPg5(false), 50);
+  } else if (window.location.hash === '#chopp') {
+    setTimeout(() => window.mostrarPgChopp(false), 50);
   } else if (window.location.hash === '#lista-presentes') {
     setTimeout(() => {
       window.mostrarPg5(false);
@@ -283,8 +381,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cover.style.display = "none";
       }
 
-      // Transição para a Página 3 com registro no histórico
-      window.mostrarPg3(true);
+      // Transição para a Página de Introdução com registro no histórico
+      window.mostrarIntro(true);
     });
   }
 
@@ -296,7 +394,33 @@ document.addEventListener('DOMContentLoaded', () => {
       if (video) {
         try { video.pause(); } catch (err) {}
       }
-      window.mostrarPg3(true);
+      window.mostrarIntro(true);
+    });
+  }
+
+  // Gatilho do Card de Introdução -> Avança para o Menu de Opções
+  const introCardTrigger = document.getElementById("introCardTrigger");
+  if (introCardTrigger) {
+    introCardTrigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.mostrarMenu(true);
+    });
+    introCardTrigger.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.mostrarMenu(true);
+    }, { passive: false });
+  }
+
+  // Fallback direto: clique sobre a imagem de introdução avança para o menu
+  if (pdIntro) {
+    pdIntro.style.cursor = "pointer";
+    pdIntro.style.pointerEvents = "auto";
+    pdIntro.addEventListener("click", () => {
+      if (currentPage === 'intro' || currentPage === 'pg3') {
+        window.mostrarMenu(true);
+      }
     });
   }
 
