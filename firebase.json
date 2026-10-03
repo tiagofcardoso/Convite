@@ -1,0 +1,48 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|png|mp3|mp4|webp)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(html|js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=3600, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "**/*.ics",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/calendar; charset=utf-8"
+          },
+          {
+            "key": "Content-Disposition",
+            "value": "inline; filename=\"convite.ics\""
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+# Dependências
+node_modules/
+
+# Cache/estado local do Firebase CLI
+.firebase/
+firebase-debug.log*
+
+# Segredos / ambiente
+.env
+.env.*
+
+# Screenshots e backups de teste
+shot_*.png
+test_*.png
+*_backup.jpg
+
+# Dumps brutos do catálogo WePink (regeneráveis, ~14 MB cada)
+wepink_raw_products.json
+wepink_all_catalog_latin1.json
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
