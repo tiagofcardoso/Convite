@@ -19,7 +19,7 @@
     href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=18">
 </head>
 
 <body>
@@ -39,13 +39,15 @@
       <button id="skipIntroBtn" type="button" aria-label="Pular abertura">Pular abertura</button>
 
       <!-- Páginas do Convite -->
-      <img id="pdIntro" class="pageMedia fade-transition" src="pagina_intro.jpg"
+      <img id="pdIntro" class="pageMedia fade-transition" src="pagina_intro.jpg?v=2"
         alt="Página de Abertura - Giovana Meus 15 Anos">
-      <img id="pdMenu" class="pageMedia fade-transition" src="pagina_menu.jpg"
+      <img id="pdMenu" class="pageMedia fade-transition" src="pagina_menu.jpg?v=2"
         alt="Menu Interativo - Giovana Meus 15 Anos">
       <img id="pd4" class="pageMedia fade-transition" src="pagina4.jpg?v=4" alt="Página 4 - Manual do Convidado">
       <img id="pd5" class="pageMedia fade-transition" src="pagina5.jpg?v=2"
         alt="Página 5 - Lista de Presentes e Chave Pix">
+      <img id="pdChopp" class="pageMedia fade-transition" src="pagina_chopp.jpg?v=2"
+        alt="Página Chopp no Barril - Giovana 15 Anos">
 
       <!-- Camada de Botões Interativos -->
       <div class="btnLayer">
@@ -87,49 +89,67 @@
           </span>
         </a>
 
-        <!-- Gatilho Interativo sobre o Card de Mensagem com a Mãozinha Fantasma (surge após 5s) -->
+        <!-- Gatilho Interativo sobre o Card de Mensagem - Pulsação Suave e Elegante após 5s (Opção 1) -->
         <button type="button" id="introCardTrigger" class="btn-inv intro-card-trigger intro-only pg3-only"
           onclick="mostrarMenu();" aria-label="Toque para abrir o menu com as opções do convite">
-          <div class="ghost-hand-container">
-            <span class="ghost-hand-icon">👆</span>
-            <span class="ghost-hand-hint">toque para ver as opções ✨</span>
-          </div>
         </button>
 
         <!-- TELA 2: MENU PRINCIPAL (5 Medalhões e Botão Voltar) -->
         <!-- Botão Voltar do Menu (retorna para o convite/boas-vindas) -->
         <a id="btnBackMenu" class="btn-inv menu-only" href="#" onclick="voltarNavegacao(); return false;"
-          aria-label="Voltar para a introdução" style="left:79%; top:2.3%; width:17%; height:9.5%;"></a>
+          aria-label="Voltar para a introdução" style="left:78%; top:2.0%; width:19%; height:10.5%;"></a>
 
         <!-- 1. MAPA (Superior Esquerda) -->
-        <a id="btnMaps" class="btn-inv menu-only" href="#" target="_blank" rel="noopener"
-          aria-label="Ver localização no Google Maps" style="left:21.5%; top:35.0%; width:22%; height:14.5%;"></a>
+        <a id="btnMaps" class="btn-inv menu-only"
+          href="https://www.google.com/maps/place/R.+Carlos+Bel%C3%A3o,+570+-+Vila+Juliana,+Piraquara+-+PR,+83306-120,+Brasil/@-25.4570171,-49.0714279,17z/data=!3m1!4b1!4m6!3m5!1s0x94dcf2e3a1a18ba1:0x38d1d219b84ddd6f!8m2!3d-25.457022!4d-49.068853!16s%2Fg%2F11f2sx36l8?entry=ttu&g_ep=EgoyMDI2MDkyOC4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank" rel="noopener"
+          aria-label="Ver localização no Google Maps" style="left:19.5%; top:33.5%; width:26%; height:16.5%;"></a>
 
         <!-- 2. FOTOS (Superior Direita) -->
-        <a id="btnPhotos" class="btn-inv menu-only" href="#" target="_blank" rel="noopener"
+        <a id="btnPhotos" class="btn-inv menu-only"
+          href="https://drive.google.com/drive/folders/1MwWXJq6Tze003JjkJFW9rQVh4MGv58e9?usp=sharing"
+          target="_blank" rel="noopener"
           aria-label="Abrir álbum e enviar fotos no Google Drive"
-          style="left:56.5%; top:35.0%; width:22%; height:14.5%;"></a>
+          style="left:54.5%; top:33.5%; width:26%; height:16.5%;"></a>
 
         <!-- 3. PRESENTES (Meio Esquerda) -->
         <a id="btnGifts" class="btn-inv menu-only" href="#" onclick="mostrarPg5(); return false;"
-          aria-label="Lista de presentes e Chave Pix" style="left:21.5%; top:52.5%; width:22%; height:14.5%;"></a>
+          aria-label="Lista de presentes e Chave Pix" style="left:19.5%; top:51.0%; width:26%; height:16.5%;"></a>
 
         <!-- 4. MANUAL DO CONVIDADO (Meio Direita) -->
         <a id="btnRSVP" class="btn-inv menu-only" href="#" onclick="mostrarPg4(); return false;"
-          aria-label="Manual do Convidado" style="left:56.5%; top:52.5%; width:22%; height:15.5%;"></a>
+          aria-label="Manual do Convidado" style="left:54.5%; top:51.0%; width:26%; height:17.5%;"></a>
 
-        <!-- 5. CHOPP NO BARRIL (Inferior Centro) -->
-        <button id="btnChopp" type="button" class="btn-inv menu-only" onclick="abrirModalChopp();"
-          aria-label="Contribuir com o Chopp no Barril"
-          style="left:39.0%; top:70.5%; width:22%; height:14.5%; border:none; background:transparent; cursor:pointer;"></button>
+        <!-- 5. CHOPP NO BARRIL (Inferior Centro) -> Aponta para a Página Dedicada do Chopp -->
+        <a id="btnChopp" class="btn-inv menu-only" href="#" onclick="mostrarPgChopp(); return false;"
+          aria-label="Página do Chopp no Barril"
+          style="left:35.0%; top:69.0%; width:30%; height:17.5%;"></a>
 
         <!-- PÁGINA 4: Botão Voltar (retorna ao Menu) -->
         <a id="btnBackPg4" class="btn-inv pg4-only" href="#" onclick="voltarNavegacao(); return false;"
-          aria-label="Voltar para o menu" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
+          aria-label="Voltar para o menu" style="left:78%; top:2.0%; width:19%; height:10.5%;"></a>
 
         <!-- PÁGINA 5: Botão Voltar (retorna ao Menu) -->
         <a id="btnBackPg5" class="btn-inv pg5-only" href="#" onclick="voltarNavegacao(); return false;"
-          aria-label="Voltar para o menu" style="left:80%; top:3.5%; width:16%; height:9%;"></a>
+          aria-label="Voltar para o menu" style="left:78%; top:2.0%; width:19%; height:10.5%;"></a>
+
+        <!-- PÁGINA CHOPP: Botão Voltar (retorna ao Menu) -->
+        <a id="btnBackChopp" class="btn-inv pg-chopp-only" href="#" onclick="voltarNavegacao(); return false;"
+          aria-label="Voltar para o menu" style="left:78%; top:2.0%; width:19%; height:10.5%;"></a>
+
+        <!-- PÁGINA CHOPP: Botão Copiar Chave Pix -->
+        <a id="btnCopyPixChopp" class="btn-inv pg-chopp-only" href="#" onclick="copiarPix('060341299-82'); return false;"
+          aria-label="Copiar Chave Pix do Chopp" style="left:22%; top:67.2%; width:56%; height:5.2%;"></a>
+
+        <!-- PÁGINA CHOPP: Botão Abrir no Banco -->
+        <a id="btnBankChopp" class="btn-inv pg-chopp-only" href="#" onclick="abrirAppBanco('060341299-82'); return false;"
+          aria-label="Abrir Chave Pix no Banco" style="left:22%; top:72.8%; width:56%; height:5.2%;"></a>
+
+        <!-- PÁGINA CHOPP: Toque no QR Code ou na Chave para Copiar -->
+        <a id="btnQrChopp" class="btn-inv pg-chopp-only" href="#" onclick="copiarPix('060341299-82'); return false;"
+          aria-label="Copiar Chave Pix pelo QR Code" style="left:33%; top:43%; width:34%; height:15%;"></a>
+        <a id="btnPixKeyChopp" class="btn-inv pg-chopp-only" href="#" onclick="copiarPix('060341299-82'); return false;"
+          aria-label="Copiar Chave Pix CPF" style="left:22%; top:60.5%; width:56%; height:6%;"></a>
 
         <!-- Card da Chave Pix na Página 5 (painel rosé dentro do card de vidro "Chave Pix") -->
         <div id="cardPixPage5" class="pg5-pix-card pg5-only" role="group" aria-label="Chave Pix para presente">
@@ -366,7 +386,7 @@
     <!-- Configurações e Scripts -->
     <script src="config.js?v=6" charset="UTF-8"></script>
     <script src="presentes.js?v=4" charset="UTF-8"></script>
-    <script src="main.js?v=10" charset="UTF-8"></script>
+    <script src="main.js?v=12" charset="UTF-8"></script>
 </body>
 
 </html>
