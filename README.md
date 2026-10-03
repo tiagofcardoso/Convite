@@ -24,7 +24,7 @@ Abra o arquivo [`config.js`](file:///c:/Users/tiago/OneDrive/Documents/Developme
 const CONVITE_CONFIG = {
   nome: "Giovana",
   idade: "15 Anos",
-  dataEventoIso: "2026-12-12T20:00:00-03:00", // 12/12/2026 às 20:00
+  dataEventoIso: "2026-12-12T19:00:00-03:00", // 12/12/2026 às 19:00
 
   // Sua chave Pix para presentes
   chavePix: "18919333700",

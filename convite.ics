@@ -16,7 +16,7 @@ END:VTIMEZONE
 BEGIN:VEVENT
 UID:giovana-15-anos-20261212@convite
 DTSTAMP:20261001T220000Z
-DTSTART;TZID=America/Sao_Paulo:20261212T200000
+DTSTART;TZID=America/Sao_Paulo:20261212T190000
 DTEND;TZID=America/Sao_Paulo:20261213T010000
 SUMMARY:🦋 Giovana - 15 Anos
 DESCRIPTION:Festa de 15 Anos da Giovana! ✨ Venha comemorar esse momento tão especial conosco!\n\nLocal: R. Carlos Belão, 570 - Vila Juliana, Piraquara - PR

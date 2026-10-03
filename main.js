@@ -501,13 +501,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 350);
   };
 
-  // Contagem Regressiva em Tempo Real (12 de Dezembro de 2026 às 20h)
+  // Contagem Regressiva em Tempo Real (12 de Dezembro de 2026 às 19h)
   function padZero(val) {
     return String(Math.max(0, Math.floor(val))).padStart(2, "0");
   }
 
   function updateCountdown() {
-    const defaultDate = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.dataEventoIso) || "2026-12-12T20:00:00-03:00";
+    const defaultDate = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.dataEventoIso) || "2026-12-12T19:00:00-03:00";
     document.querySelectorAll(".js-countdown").forEach((el) => {
       const targetIso = el.getAttribute("data-countdown-target") || defaultDate;
       const targetMs = new Date(targetIso).getTime();
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildCalendarUrls() {
     const nome = cfg.nome || "Giovana";
     const idade = cfg.idade || "15 Anos";
-    const dataIso = cfg.dataEventoIso || "2026-12-12T20:00:00-03:00";
+    const dataIso = cfg.dataEventoIso || "2026-12-12T19:00:00-03:00";
     const endereco = cfg.endereco || {};
     const local = [endereco.local, endereco.bairro, endereco.cidade].filter(Boolean).join(", ") || "R. Carlos Belão, 570 - Vila Juliana, Piraquara - PR";
     const mapsUrl = cfg.localizacaoMapsUrl || "";
@@ -558,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = `🦋 ${nome} - ${idade}`;
     const details = `Festa de ${idade} da ${nome}! ✨\nVenha comemorar esse momento tão especial conosco!\n\nLocal: ${local}\nComo chegar: ${mapsUrl}`;
 
-    const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=20261212T200000/20261213T010000&ctz=America/Sao_Paulo&details=${encodeURIComponent(details)}&location=${encodeURIComponent(local)}`;
+    const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=20261212T190000/20261213T003000&ctz=America/Sao_Paulo&details=${encodeURIComponent(details)}&location=${encodeURIComponent(local)}`;
 
     return {
       googleCalUrl,

@@ -8,8 +8,8 @@ const CONVITE_CONFIG = {
   nome: "Giovana",
   idade: "15 Anos",
 
-  // Data e hora do evento (12 de Dezembro de 2026 às 20:00)
-  dataEventoIso: "2026-12-12T20:00:00-03:00",
+  // Data e hora do evento (12 de Dezembro de 2026 às 19:00)
+  dataEventoIso: "2026-12-12T19:00:00-03:00",
 
   // Chave Pix para receber presentes e contribuição do chopp
   chavePix: "06034129982", // CPF 060341299-82
