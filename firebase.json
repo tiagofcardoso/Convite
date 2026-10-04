@@ -5,7 +5,10 @@
       "firebase.json",
       ".firebaserc",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "*.backup.*",
+      "stitch_preview/**",
+      "README.md"
     ],
     "headers": [
       {
