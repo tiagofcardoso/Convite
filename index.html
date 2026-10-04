@@ -974,38 +974,61 @@
       });
     }
 
-    // Gerenciador de Visibilidade e Foco
-    // Pausa a música imediatamente se o usuário sair para outro app ou aba
-    function isPageActiveAndFocused() {
-      const isHidden = document.hidden || (document.visibilityState === 'hidden');
-      const hasFocus = typeof document.hasFocus === 'function' ? document.hasFocus() : true;
-      return !isHidden && hasFocus;
-    }
-
-    function handleVisibilityOrFocusChange() {
-      if (!isPageActiveAndFocused()) {
-        // Saiu para outro app, minimizou ou trocou de aba: pausa imediatamente
-        if (isPlaying || (bgAudio && !bgAudio.paused)) {
+    // 1. Interceptador Global: Pausa IMEDIATAMENTE ao clicar em qualquer link externo ou redirecionamento
+    document.addEventListener('click', (e) => {
+      const anchor = e.target.closest('a');
+      if (anchor) {
+        const href = anchor.getAttribute('href') || '';
+        const target = anchor.getAttribute('target') || '';
+        // Se abrir em nova aba (_blank) ou for link externo (Google Calendar, Maps, Drive, WePink, apps de banco, etc)
+        if (target === '_blank' || href.startsWith('http') || href.startsWith('//') || href.startsWith('intent:') || href.startsWith('bankapp:')) {
           pauseAudio();
         }
-      } else {
-        // Retornou o foco ao convite: se o usuário já havia aberto o convite e deseja ouvir música, retoma
+      }
+    }, true); // Fase de captura (true) garante pausa no milissegundo exato do clique antes da navegação
+
+    // Interceptador para window.open
+    const _originalWindowOpen = window.open;
+    window.open = function(...args) {
+      pauseAudio();
+      return _originalWindowOpen.apply(this, args);
+    };
+
+    // Gerenciador de Visibilidade e Foco
+    // Pausa a música imediatamente ao sair para outro app, minimizar ou trocar de aba
+    window.addEventListener('blur', () => {
+      pauseAudio();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden || document.visibilityState === 'hidden') {
+        pauseAudio();
+      } else if (!document.hidden && document.visibilityState === 'visible') {
+        // Ao retornar com o foco ao convite: retoma se o usuário tinha a música ligada e o convite já foi aberto
         if (userWantsMusic && isUnboxed && !isPlaying) {
           playAudio();
         }
       }
-    }
+    });
 
-    document.addEventListener('visibilitychange', handleVisibilityOrFocusChange);
-    window.addEventListener('blur', () => {
-      setTimeout(handleVisibilityOrFocusChange, 60);
-    });
     window.addEventListener('focus', () => {
-      setTimeout(handleVisibilityOrFocusChange, 60);
+      if (userWantsMusic && isUnboxed && !isPlaying && !document.hidden && document.visibilityState === 'visible') {
+        playAudio();
+      }
     });
-    window.addEventListener('pageshow', handleVisibilityOrFocusChange);
+
+    window.addEventListener('pageshow', () => {
+      if (userWantsMusic && isUnboxed && !isPlaying && !document.hidden && document.visibilityState === 'visible') {
+        playAudio();
+      }
+    });
+
     window.addEventListener('pagehide', () => {
-      if (isPlaying) pauseAudio();
+      pauseAudio();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      pauseAudio();
     });
 
     // 1. Abertura do Envelope / Unboxing Real
@@ -1117,6 +1140,7 @@
     }
 
     function openBankApp(key) {
+      pauseAudio();
       copyPixKey(key, 'Chave copiada! Abrindo aplicativo...');
       window.location.href = 'bankapp://';
       setTimeout(() => {
