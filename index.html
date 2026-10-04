@@ -171,6 +171,73 @@
   <!-- Trilha Musical Oficial -->
   <audio id="bgMusic" src="musica.mp3" loop preload="auto"></audio>
 
+  <!-- ========================================== -->
+  <!-- TELA INICIAL: UNBOXING REAL (SELO & FITA)  -->
+  <!-- ========================================== -->
+  <div id="unboxingOverlay" class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-plum-night">
+    
+    <!-- Fundo Veludo Noturno com Brilho Mágico -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_#34132b_0%,_#150512_100%)] pointer-events-none"></div>
+
+    <!-- Partículas sutis de purpurina/stardust -->
+    <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_30%_30%,_rgba(254,181,161,0.18)_0%,_transparent_60%),radial-gradient(ellipse_at_70%_70%,_rgba(224,169,154,0.15)_0%,_transparent_60%)]"></div>
+
+    <!-- Abas do Envelope (Portas Reais de Gala) -->
+    <div id="envelopeDoorLeft" class="absolute top-0 bottom-0 left-0 w-1/2 bg-gradient-to-r from-[#200c1c] via-[#2a1125] to-[#1e0a1a] border-r border-rose-gold-light/25 transition-transform duration-1000 ease-in-out shadow-2xl flex items-center justify-end pr-2 pointer-events-none">
+      <div class="w-px h-3/4 bg-gradient-to-b from-transparent via-gold-gleam/30 to-transparent"></div>
+    </div>
+    <div id="envelopeDoorRight" class="absolute top-0 bottom-0 right-0 w-1/2 bg-gradient-to-l from-[#200c1c] via-[#2a1125] to-[#1e0a1a] border-l border-rose-gold-light/25 transition-transform duration-1000 ease-in-out shadow-2xl flex items-center justify-start pl-2 pointer-events-none">
+      <div class="w-px h-3/4 bg-gradient-to-b from-transparent via-gold-gleam/30 to-transparent"></div>
+    </div>
+
+    <!-- Fita de Seda Rose Gold Atravessando o Centro -->
+    <div id="silkRibbon" class="absolute left-0 right-0 h-20 bg-gradient-to-r from-[#88364d] via-[#E0A99A] via-50% to-[#88364d] shadow-[0_8px_30px_rgba(0,0,0,0.7)] flex items-center justify-center pointer-events-none border-y-2 border-champagne-warm/40 transition-all duration-700 ease-out">
+      <!-- Brilho acetinado de alta costura na fita -->
+      <div class="w-full h-1 bg-white/60 absolute top-2 shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
+      <div class="w-full h-1 bg-black/30 absolute bottom-2"></div>
+      <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-gold-gleam/80 to-transparent absolute top-1/2"></div>
+    </div>
+
+    <!-- Selo de Cera / Brasão Central Interativo -->
+    <div class="relative z-30 flex flex-col items-center cursor-pointer select-none px-4" onclick="abrirConviteReal()">
+      
+      <!-- Selo de Cera 3D com Aura de Luz -->
+      <div class="relative group flex items-center justify-center">
+        <!-- Anéis de Pulsação Mágica -->
+        <div class="absolute w-56 h-56 rounded-full bg-rose-gold-light/20 animate-ping pointer-events-none"></div>
+        <div class="absolute w-48 h-48 rounded-full bg-gradient-to-b from-gold-gleam/30 to-rose-gold-deep/20 blur-md pointer-events-none animate-pulse"></div>
+
+        <!-- Selo Físico em Relevo Ouro Rosé -->
+        <div class="relative w-44 h-44 rounded-full p-2.5 bg-gradient-to-br from-[#f2cac0] via-[#C58371] to-[#7a2a3e] shadow-[0_20px_45px_rgba(0,0,0,0.9),_inset_0_3px_6px_rgba(255,255,255,0.8),_0_0_30px_rgba(197,131,113,0.5)] border-2 border-champagne-warm/60 flex items-center justify-center group-hover:scale-105 active:scale-95 transition-transform duration-300">
+          <div class="w-full h-full rounded-full overflow-hidden bg-plum-night shadow-[inset_0_4px_10px_rgba(0,0,0,0.8)] border border-rose-gold-light/40 flex items-center justify-center p-1">
+            <img src="monograma.png" alt="Monograma Real Giovana 15 Anos" class="w-full h-full object-cover filter contrast-105 drop-shadow-md rounded-full" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Texto Nobre de Apresentação -->
+      <div class="mt-7 flex flex-col items-center text-center">
+        <span class="font-label-caps text-[11px] tracking-[0.35em] uppercase text-rose-gold-light font-bold drop-shadow-sm">
+          Convite Real de Gala
+        </span>
+        <h1 class="font-display-hero-mobile text-[36px] text-champagne-warm font-normal tracking-wide drop-shadow-md mt-1">
+          Giovana
+        </h1>
+        <span class="font-headline-sm text-[17px] text-primary italic font-light -mt-1 mb-5">
+          Meus 15 Anos
+        </span>
+
+        <!-- Botão Animado de Abertura -->
+        <button type="button" class="px-6 py-3 rounded-full bg-gradient-to-r from-rose-gold-light via-rose-gold-metallic to-rose-gold-deep text-plum-night shadow-[0_4px_20px_rgba(197,131,113,0.5)] flex items-center gap-2 transition-all hover:brightness-110 active:scale-95 animate-bounce">
+          <span class="material-symbols-outlined text-[20px]">drafts</span>
+          <span class="font-label-caps text-[11px] uppercase tracking-widest font-extrabold">Toque para Abrir o Convite ✨</span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
   <!-- Luz Ambiente Suave no Topo -->
   <div class="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-plum-royal/40 via-surface to-plum-night/80"></div>
 
@@ -219,8 +286,8 @@
 
         <!-- Monograma Destaque com Borboleta -->
         <div class="relative mb-5 flex items-center justify-center">
-          <div class="w-24 h-24 rounded-full bg-gradient-to-b from-rose-gold-light/20 to-plum-royal/40 p-1 flex items-center justify-center shadow-lg border border-rose-gold-light/30">
-            <img alt="Monograma G15 Borboleta Rose Gold" class="w-full h-full object-contain p-2 rounded-full" src="monograma.png" />
+          <div class="w-32 h-32 rounded-full bg-gradient-to-b from-rose-gold-light/25 to-plum-royal/40 p-1 flex items-center justify-center shadow-2xl border-2 border-rose-gold-light/40">
+            <img alt="Monograma G15 Borboleta Rose Gold" class="w-full h-full object-cover rounded-full shadow-inner" src="monograma.png" />
           </div>
         </div>
 
@@ -913,6 +980,47 @@
   <!-- SCRIPTS PRINCIPAIS & INTERATIVIDADE        -->
   <!-- ========================================== -->
   <script>
+    // 0. Abertura do Envelope / Unboxing Real
+    function abrirConviteReal() {
+      const overlay = document.getElementById('unboxingOverlay');
+      const doorLeft = document.getElementById('envelopeDoorLeft');
+      const doorRight = document.getElementById('envelopeDoorRight');
+      const ribbon = document.getElementById('silkRibbon');
+
+      // Tocar música com o toque inicial do usuário
+      if (bgAudio && !isPlaying) {
+        bgAudio.play().then(() => {
+          if (audioWave) audioWave.classList.remove('paused');
+          if (musicText) musicText.textContent = 'Tocando';
+          isPlaying = true;
+        }).catch(() => {});
+      }
+
+      // Animação de desatar a fita de seda
+      if (ribbon) {
+        ribbon.style.transform = 'scaleY(0)';
+        ribbon.style.opacity = '0';
+      }
+
+      // Portas laterais abrem suavemente
+      if (doorLeft) {
+        doorLeft.style.transform = 'translateX(-102%)';
+      }
+      if (doorRight) {
+        doorRight.style.transform = 'translateX(102%)';
+      }
+
+      // Desvanecimento do overlay revelando o convite
+      if (overlay) {
+        overlay.style.transition = 'opacity 0.8s ease 0.45s, transform 0.8s ease 0.45s';
+        overlay.style.opacity = '0';
+        overlay.style.transform = 'scale(1.06)';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 1250);
+      }
+    }
+
     // 1. Alternador de Abas SPA
     const tabs = ['convite', 'local', 'wepink', 'pix'];
     const tabTitles = {
