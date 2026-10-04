@@ -1065,7 +1065,7 @@
       }
     }
 
-    // 2. Alternador de Abas SPA
+    // 2. Alternador de Abas SPA com Suporte ao Botão Voltar (History API)
     const tabs = ['convite', 'local', 'wepink', 'pix'];
     const tabTitles = {
       'convite': '15 Anos • Convite',
@@ -1073,8 +1073,12 @@
       'wepink': '15 Anos • Lista de Presentes',
       'pix': '15 Anos • Pix & Chopp'
     };
+    let currentTab = 'convite';
 
-    function switchTab(targetTab) {
+    function switchTab(targetTab, pushHistory = true) {
+      if (!tabs.includes(targetTab)) targetTab = 'convite';
+      currentTab = targetTab;
+
       tabs.forEach(tab => {
         const panel = document.getElementById(`view-${tab}`);
         const navBtn = document.getElementById(`nav-${tab}`);
@@ -1097,7 +1101,45 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Atualiza o histórico do navegador para permitir o botão Voltar do celular/navegador
+      if (pushHistory) {
+        if (window.location.hash !== `#${targetTab}`) {
+          history.pushState({ tab: targetTab }, '', `#${targetTab}`);
+        }
+      }
     }
+
+    // Gerenciador do Botão Voltar (Android, iOS e Navegador)
+    window.addEventListener('popstate', (e) => {
+      // Se houver modal aberto, o botão Voltar fecha o modal
+      const modal = document.getElementById('reserveModal');
+      if (modal && !modal.classList.contains('pointer-events-none')) {
+        closeReserveModal(false);
+        return;
+      }
+
+      // Obtém a aba anterior pelo estado do histórico ou hash
+      const hashTab = window.location.hash.replace('#', '');
+      const stateTab = e.state && e.state.tab;
+      const targetTab = stateTab || (tabs.includes(hashTab) ? hashTab : 'convite');
+
+      if (tabs.includes(targetTab)) {
+        switchTab(targetTab, false);
+      } else {
+        switchTab('convite', false);
+      }
+    });
+
+    // Inicialização da URL e histórico ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialHash = window.location.hash.replace('#', '');
+      const validInitial = tabs.includes(initialHash) ? initialHash : 'convite';
+      history.replaceState({ tab: validInitial }, '', `#${validInitial}`);
+      if (validInitial !== 'convite') {
+        switchTab(validInitial, false);
+      }
+    });
 
     // 3. Contagem Regressiva em Tempo Real
     function updateCountdown() {
@@ -1192,7 +1234,7 @@
       if (countEl) countEl.innerText = `${visible} mimos selecionados`;
     }
 
-    // 8. Modal de Reserva de Presente WePink
+    // 8. Modal de Reserva de Presente
     let currentGiftId = null;
     function openReserveModal(id, title, price) {
       currentGiftId = id;
@@ -1203,13 +1245,20 @@
       const modal = document.getElementById('reserveModal');
       modal.classList.remove('opacity-0', 'pointer-events-none');
       modal.querySelector('div').classList.remove('scale-95');
+
+      // Registra estado no histórico para fechar com o botão Voltar
+      history.pushState({ tab: currentTab, modal: true }, '', `#reserva-${id}`);
     }
 
-    function closeReserveModal() {
+    function closeReserveModal(triggerHistoryBack = true) {
       const modal = document.getElementById('reserveModal');
       modal.classList.add('opacity-0', 'pointer-events-none');
       modal.querySelector('div').classList.add('scale-95');
       currentGiftId = null;
+
+      if (triggerHistoryBack && window.location.hash.startsWith('#reserva-')) {
+        history.back();
+      }
     }
 
     function confirmGiftReservation() {
