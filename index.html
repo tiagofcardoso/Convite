@@ -190,17 +190,16 @@
       <div class="w-px h-3/4 bg-gradient-to-b from-transparent via-gold-gleam/30 to-transparent"></div>
     </div>
 
-    <!-- Fita de Seda Rose Gold Atravessando o Centro -->
-    <div id="silkRibbon" class="absolute left-0 right-0 h-20 bg-gradient-to-r from-[#88364d] via-[#E0A99A] via-50% to-[#88364d] shadow-[0_8px_30px_rgba(0,0,0,0.7)] flex items-center justify-center pointer-events-none border-y-2 border-champagne-warm/40 transition-all duration-700 ease-out">
+    <!-- Fita de Seda Rose Gold Atravessando o Centro Exato -->
+    <div id="silkRibbon" class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-20 bg-gradient-to-r from-[#88364d] via-[#E0A99A] via-50% to-[#88364d] shadow-[0_8px_30px_rgba(0,0,0,0.7)] flex items-center justify-center pointer-events-none border-y-2 border-champagne-warm/40 transition-all duration-700 ease-out z-20">
       <!-- Brilho acetinado de alta costura na fita -->
       <div class="w-full h-1 bg-white/60 absolute top-2 shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
       <div class="w-full h-1 bg-black/30 absolute bottom-2"></div>
       <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-gold-gleam/80 to-transparent absolute top-1/2"></div>
     </div>
 
-    <!-- Selo de Cera / Brasão Central Interativo -->
-    <div class="relative z-30 flex flex-col items-center cursor-pointer select-none px-4" onclick="abrirConviteReal()">
-      
+    <!-- Selo de Cera / Brasão Central Interativo (Centralizado Exatamente em Cima da Faixa) -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center cursor-pointer select-none" onclick="abrirConviteReal()" title="Toque para abrir o convite">
       <!-- Selo de Cera 3D com Aura de Luz -->
       <div class="relative group flex items-center justify-center">
         <!-- Anéis de Pulsação Mágica -->
@@ -214,26 +213,16 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Texto Nobre de Apresentação -->
-      <div class="mt-7 flex flex-col items-center text-center">
-        <span class="font-label-caps text-[11px] tracking-[0.35em] uppercase text-rose-gold-light font-bold drop-shadow-sm">
-          Convite Real de Gala
-        </span>
-        <h1 class="font-display-hero-mobile text-[36px] text-champagne-warm font-normal tracking-wide drop-shadow-md mt-1">
-          Giovana
-        </h1>
-        <span class="font-headline-sm text-[17px] text-primary italic font-light -mt-1 mb-5">
-          Meus 15 Anos
-        </span>
-
-        <!-- Botão Animado de Abertura -->
-        <button type="button" class="px-6 py-3 rounded-full bg-gradient-to-r from-rose-gold-light via-rose-gold-metallic to-rose-gold-deep text-plum-night shadow-[0_4px_20px_rgba(197,131,113,0.5)] flex items-center gap-2 transition-all hover:brightness-110 active:scale-95 animate-bounce">
-          <span class="material-symbols-outlined text-[20px]">drafts</span>
-          <span class="font-label-caps text-[11px] uppercase tracking-widest font-extrabold">Toque para Abrir o Convite ✨</span>
-        </button>
-      </div>
-
+    <!-- Título Giovana e Meus 15 Anos Posicionados Mais Abaixo -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-[108px] z-30 flex flex-col items-center text-center pointer-events-none w-full px-4">
+      <h1 class="font-display-hero-mobile text-[38px] text-champagne-warm font-normal tracking-wide drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] leading-tight">
+        Giovana
+      </h1>
+      <span class="font-headline-sm text-[18px] text-primary italic font-light drop-shadow-md mt-1">
+        Meus 15 Anos
+      </span>
     </div>
 
   </div>
@@ -355,46 +344,6 @@
         </a>
       </div>
 
-      <!-- Cards de Navegação para WePink & Pix/Chopp -->
-      <div class="grid grid-cols-1 gap-4">
-        <!-- Card WePink -->
-        <div class="relative rounded-lg bg-surface-container/70 backdrop-blur-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-rose-gold-light/15">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-tertiary/10 rounded-full blur-xl pointer-events-none"></div>
-          <div>
-            <div class="flex items-center gap-2 mb-2 text-tertiary">
-              <span class="material-symbols-outlined text-[20px]">featured_seasonal_and_gifts</span>
-              <span class="font-label-caps text-[11px] uppercase tracking-wider font-semibold">Lista Oficial</span>
-            </div>
-            <h3 class="font-headline-sm text-headline-sm text-champagne-warm mb-1">WePink da Giovana</h3>
-            <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-4">
-              Fragrâncias e cosméticos favoritos escolhidos com muito carinho. Itens exclusivos sem repetição!
-            </p>
-          </div>
-          <button type="button" class="w-full h-11 rounded-full bg-surface-container-high/90 text-champagne-warm font-label-caps text-[11px] font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-md border border-rose-gold-light/10" onclick="switchTab('wepink')">
-            <span>Ver Catálogo WePink</span>
-            <span class="material-symbols-outlined text-[16px] text-rose-gold-light">arrow_forward</span>
-          </button>
-        </div>
-
-        <!-- Card Pix & Chopp -->
-        <div class="relative rounded-lg bg-surface-container/70 backdrop-blur-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-rose-gold-light/15">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-gold-gleam/10 rounded-full blur-xl pointer-events-none"></div>
-          <div>
-            <div class="flex items-center gap-2 mb-2 text-gold-gleam">
-              <span class="material-symbols-outlined text-[20px]">sports_bar</span>
-              <span class="font-label-caps text-[11px] uppercase tracking-wider font-semibold">Pix &amp; Chopp no Barril</span>
-            </div>
-            <h3 class="font-headline-sm text-headline-sm text-champagne-warm mb-1">Presente ou Um Brinde</h3>
-            <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-4">
-              Teremos chopp gelado direto da torneira! Se preferir, presenteie via Pix ou participe da rodada.
-            </p>
-          </div>
-          <button type="button" class="w-full h-11 rounded-full bg-surface-container-high/90 text-champagne-warm font-label-caps text-[11px] font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-md border border-rose-gold-light/10" onclick="switchTab('pix')">
-            <span>Ver Chave Pix &amp; Cotas</span>
-            <span class="material-symbols-outlined text-[16px] text-rose-gold-light">payments</span>
-          </button>
-        </div>
-      </div>
 
 
       <!-- Rodapé de Elegância -->
@@ -520,31 +469,8 @@
           <div class="flex flex-col">
             <span class="font-label-caps text-[10px] uppercase tracking-wider text-rose-gold-light font-bold">Sugestão de Cores</span>
             <p class="font-body-sm text-[12px] text-champagne-warm/90 leading-snug mt-0.5">
-              Sugerimos gentilmente evitar as tonalidades <strong class="text-rose-gold-light">Rose Gold</strong> e <strong class="text-rose-gold-light">Rosa Quartz</strong>, reservadas com exclusividade para os vestidos da Giovana.
+              Pedimos a gentileza de evitar a cor <strong class="text-rose-gold-light font-bold">Rosa</strong> (em qualquer tom), reservada com exclusividade para a debutante Giovana.
             </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Informações Úteis (Cards de Apoio) -->
-      <div class="grid grid-cols-1 gap-3">
-        <div class="flex items-center gap-3 p-3.5 rounded-xl bg-surface-container/70 border border-rose-gold-light/10">
-          <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-rose-gold-light shrink-0">
-            <span class="material-symbols-outlined text-[20px]">local_parking</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-body-md text-champagne-light font-semibold text-[13px]">Estacionamento no Local</span>
-            <span class="font-body-sm text-on-surface-variant text-[11px]">Espaço demarcado e monitorado para comodidade dos convidados.</span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 p-3.5 rounded-xl bg-surface-container/70 border border-rose-gold-light/10">
-          <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-rose-gold-light shrink-0">
-            <span class="material-symbols-outlined text-[20px]">ac_unit</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-body-md text-champagne-light font-semibold text-[13px]">Ambiente Climatizado</span>
-            <span class="font-body-sm text-on-surface-variant text-[11px]">Salão com temperatura ideal e lounge para descanso.</span>
           </div>
         </div>
       </div>
@@ -552,7 +478,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- 3. ABA: WEPINK (LISTA OFICIAL DE PRESENTES)-->
+    <!-- 3. ABA: LISTA DE PRESENTES                 -->
     <!-- ========================================== -->
     <section id="view-wepink" class="tab-panel flex-col w-full px-space-md gap-space-lg">
       
@@ -561,14 +487,14 @@
         <div class="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-tertiary-container/20 blur-2xl pointer-events-none"></div>
         <div class="relative z-10 flex flex-col items-center text-center gap-space-sm">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high/80 text-rose-gold-light shadow-sm border border-rose-gold-light/15">
-            <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
-            <span class="font-label-caps text-[11px] uppercase tracking-widest text-primary font-semibold">Edição Oficial WePink</span>
+            <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">featured_seasonal_and_gifts</span>
+            <span class="font-label-caps text-[11px] uppercase tracking-widest text-primary font-semibold">Lista de Mimos</span>
           </div>
           <h1 class="font-headline-lg-mobile text-[28px] text-champagne-warm drop-shadow-sm mt-1">
             Lista de Presentes
           </h1>
           <p class="font-body-md text-body-md text-on-surface-variant italic font-light leading-relaxed">
-            “Queridos amigos e familiares, preparei esta lista oficial de presentes da <strong class="text-tertiary-fixed font-medium not-italic">WePink</strong> com muito amor! Ao escolher um item, ele fica reservado exclusivamente para você sem repetição.”
+            “Queridos amigos e familiares, preparamos sugestões especiais com muito carinho para quem desejar nos presentear neste momento único. (Lista em atualização)”
           </p>
           <div class="mt-2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-lowest/60 text-secondary-fixed-dim border border-rose-gold-light/10">
             <span class="material-symbols-outlined text-gold-gleam text-[18px]">verified</span>
@@ -632,7 +558,7 @@
           <div class="flex items-center gap-2 mt-space-md pt-space-sm bg-surface-container-lowest/30 -mx-space-md -mb-space-md p-space-md">
             <a class="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-surface-container-high/80 text-champagne-warm hover:text-primary transition-colors text-center px-2 border border-rose-gold-light/10" href="https://www.wepink.com.br" rel="noopener noreferrer" target="_blank">
               <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver na WePink</span>
+              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver Sugestão</span>
             </a>
             <button class="btn-gift flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-rose-gold-metallic to-rose-gold-deep text-plum-night shadow-md hover:brightness-110 active:scale-95 transition-all text-center px-2" onclick="openReserveModal('1', 'VF Rose Gold', 'R$ 249,90')">
               <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">featured_seasonal_and_gifts</span>
@@ -668,7 +594,7 @@
           <div class="flex items-center gap-2 mt-space-md pt-space-sm bg-surface-container-lowest/30 -mx-space-md -mb-space-md p-space-md">
             <a class="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-surface-container-high/80 text-champagne-warm hover:text-primary transition-colors text-center px-2 border border-rose-gold-light/10" href="https://www.wepink.com.br" rel="noopener noreferrer" target="_blank">
               <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver na WePink</span>
+              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver Sugestão</span>
             </a>
             <button class="btn-gift flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-rose-gold-metallic to-rose-gold-deep text-plum-night shadow-md hover:brightness-110 active:scale-95 transition-all text-center px-2" onclick="openReserveModal('2', 'Obsessed Colônia', 'R$ 199,90')">
               <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">featured_seasonal_and_gifts</span>
@@ -704,7 +630,7 @@
           <div class="flex items-center gap-2 mt-space-md pt-space-sm bg-surface-container-lowest/30 -mx-space-md -mb-space-md p-space-md">
             <a class="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-surface-container-high/80 text-champagne-warm hover:text-primary transition-colors text-center px-2 border border-rose-gold-light/10" href="https://www.wepink.com.br" rel="noopener noreferrer" target="_blank">
               <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver na WePink</span>
+              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver Sugestão</span>
             </a>
             <button class="btn-gift flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-rose-gold-metallic to-rose-gold-deep text-plum-night shadow-md hover:brightness-110 active:scale-95 transition-all text-center px-2" onclick="openReserveModal('3', 'Sérum 10 em 1', 'R$ 139,90')">
               <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">featured_seasonal_and_gifts</span>
@@ -740,7 +666,7 @@
           <div class="flex items-center gap-2 mt-space-md pt-space-sm bg-surface-container-lowest/30 -mx-space-md -mb-space-md p-space-md">
             <a class="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-surface-container-high/80 text-champagne-warm hover:text-primary transition-colors text-center px-2 border border-rose-gold-light/10" href="https://www.wepink.com.br" rel="noopener noreferrer" target="_blank">
               <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver na WePink</span>
+              <span class="font-label-caps text-[10px] tracking-wider uppercase font-semibold truncate">Ver Sugestão</span>
             </a>
             <button class="btn-gift flex-1 min-h-[44px] flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-rose-gold-metallic to-rose-gold-deep text-plum-night shadow-md hover:brightness-110 active:scale-95 transition-all text-center px-2" onclick="openReserveModal('4', 'Body Splash VF', 'R$ 115,00')">
               <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">featured_seasonal_and_gifts</span>
@@ -916,10 +842,10 @@
         <span class="font-label-caps text-[9px] tracking-wider uppercase">Local</span>
       </button>
 
-      <!-- Aba 3: WePink -->
+      <!-- Aba 3: Presentes -->
       <button id="nav-wepink" class="nav-item min-w-[48px] min-h-[48px] flex flex-col items-center justify-center gap-0.5 transition-all text-on-surface-variant hover:text-champagne-warm" onclick="switchTab('wepink')">
         <span class="material-symbols-outlined text-[22px]">featured_seasonal_and_gifts</span>
-        <span class="font-label-caps text-[9px] tracking-wider uppercase">WePink</span>
+        <span class="font-label-caps text-[9px] tracking-wider uppercase">Presentes</span>
       </button>
 
       <!-- Aba 4: Pix -->
@@ -932,7 +858,7 @@
   </nav>
 
   <!-- ========================================== -->
-  <!-- MODAL: RESERVA DE PRESENTE WEPINK          -->
+  <!-- MODAL: RESERVA DE PRESENTE                 -->
   <!-- ========================================== -->
   <div id="reserveModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-plum-night/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
     <div class="relative w-full max-w-sm rounded-2xl bg-surface-container p-6 shadow-2xl border border-rose-gold-light/25 transform scale-95 transition-all duration-300 flex flex-col space-y-4">
@@ -1096,7 +1022,7 @@
 
       // Animação de desatar a fita de seda
       if (ribbon) {
-        ribbon.style.transform = 'scaleY(0)';
+        ribbon.style.transform = 'translateY(-50%) scaleY(0)';
         ribbon.style.opacity = '0';
       }
 
@@ -1124,7 +1050,7 @@
     const tabTitles = {
       'convite': '15 Anos • Convite',
       'local': '15 Anos • Local & Data',
-      'wepink': '15 Anos • Presentes WePink',
+      'wepink': '15 Anos • Lista de Presentes',
       'pix': '15 Anos • Pix & Chopp'
     };
 
