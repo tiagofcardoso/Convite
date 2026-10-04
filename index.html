@@ -169,7 +169,7 @@
 <body class="bg-surface font-body-md text-on-surface antialiased relative min-h-screen selection:bg-rose-gold-metallic selection:text-plum-night">
 
   <!-- Trilha Musical Oficial -->
-  <audio id="bgMusic" src="musica.mp3" loop preload="auto"></audio>
+  <audio id="bgMusic" src="musica.mp3" loop preload="auto" playsinline></audio>
 
   <!-- ========================================== -->
   <!-- TELA INICIAL: UNBOXING REAL (SELO & FITA)  -->
@@ -980,21 +980,119 @@
   <!-- SCRIPTS PRINCIPAIS & INTERATIVIDADE        -->
   <!-- ========================================== -->
   <script>
-    // 0. Abertura do Envelope / Unboxing Real
+    // 0. Elementos e Estados do Player de Áudio
+    const bgAudio = document.getElementById('bgMusic');
+    const audioWave = document.getElementById('audioWaveContainer');
+    const musicText = document.getElementById('musicText');
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    let isPlaying = false;
+    let userWantsMusic = false; // Registra a intenção do usuário de manter a música ligada
+    let isUnboxed = false;      // Registra se o convite já foi aberto (unboxing concluído)
+
+    function updateAudioUI(playing) {
+      if (playing) {
+        if (audioWave) audioWave.classList.remove('paused');
+        if (musicText) musicText.textContent = 'Pausar';
+        if (musicToggleBtn) {
+          musicToggleBtn.setAttribute('aria-label', 'Pausar música');
+          musicToggleBtn.classList.add('border-rose-gold-light/60', 'shadow-[0_0_12px_rgba(254,181,161,0.25)]');
+        }
+      } else {
+        if (audioWave) audioWave.classList.add('paused');
+        if (musicText) musicText.textContent = 'Música';
+        if (musicToggleBtn) {
+          musicToggleBtn.setAttribute('aria-label', 'Tocar música');
+          musicToggleBtn.classList.remove('border-rose-gold-light/60', 'shadow-[0_0_12px_rgba(254,181,161,0.25)]');
+        }
+      }
+    }
+
+    function playAudio() {
+      if (!bgAudio) return;
+      bgAudio.play().then(() => {
+        isPlaying = true;
+        updateAudioUI(true);
+      }).catch(err => {
+        console.warn('Reprodução de áudio aguardando permissão ou foco:', err);
+      });
+    }
+
+    function pauseAudio() {
+      if (!bgAudio) return;
+      bgAudio.pause();
+      isPlaying = false;
+      updateAudioUI(false);
+    }
+
+    // Botão de alternar reprodução manual (Manter botão de tocar/pausar)
+    function toggleAudio() {
+      if (!bgAudio) return;
+      if (isPlaying) {
+        userWantsMusic = false; // Usuário pausou manualmente
+        pauseAudio();
+      } else {
+        userWantsMusic = true;  // Usuário solicitou tocar
+        playAudio();
+      }
+    }
+
+    // Sincronização direta com eventos nativos do elemento de áudio
+    if (bgAudio) {
+      bgAudio.addEventListener('play', () => {
+        isPlaying = true;
+        updateAudioUI(true);
+      });
+      bgAudio.addEventListener('pause', () => {
+        isPlaying = false;
+        updateAudioUI(false);
+      });
+    }
+
+    // Gerenciador de Visibilidade e Foco
+    // Pausa a música imediatamente se o usuário sair para outro app ou aba
+    function isPageActiveAndFocused() {
+      const isHidden = document.hidden || (document.visibilityState === 'hidden');
+      const hasFocus = typeof document.hasFocus === 'function' ? document.hasFocus() : true;
+      return !isHidden && hasFocus;
+    }
+
+    function handleVisibilityOrFocusChange() {
+      if (!isPageActiveAndFocused()) {
+        // Saiu para outro app, minimizou ou trocou de aba: pausa imediatamente
+        if (isPlaying || (bgAudio && !bgAudio.paused)) {
+          pauseAudio();
+        }
+      } else {
+        // Retornou o foco ao convite: se o usuário já havia aberto o convite e deseja ouvir música, retoma
+        if (userWantsMusic && isUnboxed && !isPlaying) {
+          playAudio();
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityOrFocusChange);
+    window.addEventListener('blur', () => {
+      setTimeout(handleVisibilityOrFocusChange, 60);
+    });
+    window.addEventListener('focus', () => {
+      setTimeout(handleVisibilityOrFocusChange, 60);
+    });
+    window.addEventListener('pageshow', handleVisibilityOrFocusChange);
+    window.addEventListener('pagehide', () => {
+      if (isPlaying) pauseAudio();
+    });
+
+    // 1. Abertura do Envelope / Unboxing Real
     function abrirConviteReal() {
       const overlay = document.getElementById('unboxingOverlay');
       const doorLeft = document.getElementById('envelopeDoorLeft');
       const doorRight = document.getElementById('envelopeDoorRight');
       const ribbon = document.getElementById('silkRibbon');
 
-      // Tocar música com o toque inicial do usuário
-      if (bgAudio && !isPlaying) {
-        bgAudio.play().then(() => {
-          if (audioWave) audioWave.classList.remove('paused');
-          if (musicText) musicText.textContent = 'Tocando';
-          isPlaying = true;
-        }).catch(() => {});
-      }
+      // Marca convite como aberto e ativa preferência de música
+      isUnboxed = true;
+      userWantsMusic = true;
+      playAudio();
 
       // Animação de desatar a fita de seda
       if (ribbon) {
@@ -1021,7 +1119,7 @@
       }
     }
 
-    // 1. Alternador de Abas SPA
+    // 2. Alternador de Abas SPA
     const tabs = ['convite', 'local', 'wepink', 'pix'];
     const tabTitles = {
       'convite': '15 Anos • Convite',
@@ -1054,42 +1152,6 @@
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // 2. Player de Áudio Imersivo
-    const bgAudio = document.getElementById('bgMusic');
-    const audioWave = document.getElementById('audioWaveContainer');
-    const musicText = document.getElementById('musicText');
-    let isPlaying = false;
-
-    function toggleAudio() {
-      if (!bgAudio) return;
-      if (isPlaying) {
-        bgAudio.pause();
-        audioWave.classList.add('paused');
-        musicText.textContent = 'Música';
-        isPlaying = false;
-      } else {
-        bgAudio.play().then(() => {
-          audioWave.classList.remove('paused');
-          musicText.textContent = 'Tocando';
-          isPlaying = true;
-        }).catch(err => {
-          console.warn('Autoplay bloqueado pelo navegador:', err);
-        });
-      }
-    }
-
-    // Tentar iniciar áudio no primeiro clique do usuário
-    document.addEventListener('click', function initAudioOnInteraction() {
-      if (!isPlaying && bgAudio) {
-        bgAudio.play().then(() => {
-          audioWave.classList.remove('paused');
-          musicText.textContent = 'Tocando';
-          isPlaying = true;
-        }).catch(() => {});
-      }
-      document.removeEventListener('click', initAudioOnInteraction);
-    }, { once: true });
 
     // 3. Contagem Regressiva em Tempo Real
     function updateCountdown() {
