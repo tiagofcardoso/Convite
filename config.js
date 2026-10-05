@@ -33,10 +33,10 @@ const CONVITE_CONFIG = {
 
   // Configuração para envio direto ao Google Forms (Planilha Google Sheets)
   googleForms: {
-    // URL de submissão do formulário (ex: https://docs.google.com/forms/d/e/ID_DO_FORM/formResponse)
-    formActionUrl: "",
-    // ID do campo de Nome no formulário (ex: entry.123456789)
-    entryNomeId: ""
+    // URL de submissão do formulário
+    formActionUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdTnhpeWUphsqVvLJLtUQdaF-JYlxMavaz_mWrlULKwJJ85VQ/formResponse",
+    // ID do campo de Nome no formulário
+    entryNomeId: "entry.425234776"
   },
 
   // Endereço do Evento
