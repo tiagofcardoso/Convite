@@ -449,14 +449,26 @@
           Digite seu nome abaixo para confirmar sua presença e nos ajudar a preparar tudo com carinho.
         </p>
 
-        <!-- Formulário Direto -->
-        <form id="rsvpForm" class="flex flex-col gap-3" onsubmit="enviarConfirmacaoPresenca(event)">
+        <!-- Iframe Oculto para Recepção Segura do Google Forms sem Recarregar -->
+        <iframe name="hidden_rsvp_iframe" id="hidden_rsvp_iframe" style="display:none; width:0; height:0; border:0;" title="Google Forms Submissao"></iframe>
+
+        <!-- Formulário Direto com Envio Nativo via Hidden Iframe -->
+        <form id="rsvpForm" 
+          action="https://docs.google.com/forms/d/e/1FAIpQLSdTnhpeWUphsqVvLJLtUQdaF-JYlxMavaz_mWrlULKwJJ85VQ/formResponse"
+          method="POST"
+          target="hidden_rsvp_iframe"
+          class="flex flex-col gap-3" 
+          onsubmit="return enviarConfirmacaoPresenca(event)">
+          <input type="hidden" name="fvv" value="1" />
+          <input type="hidden" name="pageHistory" value="0" />
+          <input type="hidden" name="submit" value="Submit" />
+
           <div>
             <label for="rsvpNome"
               class="block font-label-caps text-[10px] uppercase tracking-wider text-rose-gold-light mb-1 font-semibold">
               Seu Nome Completo
             </label>
-            <input id="rsvpNome" type="text" required placeholder="Convidado..."
+            <input id="rsvpNome" name="entry.425234776" type="text" required placeholder="Convidado..."
               class="w-full h-12 px-4 rounded-full bg-surface-container-high/90 text-champagne-warm placeholder:text-on-surface-variant/40 font-body-md text-[14px] focus:outline-none focus:ring-1 focus:ring-rose-gold-light border border-rose-gold-light/15 shadow-inner transition-all" />
           </div>
 
@@ -1337,12 +1349,14 @@
       });
     }
 
-    // 5.5 Confirmação de Presença Direta (com suporte a Google Forms)
+    // 5.5 Confirmação de Presença Direta (Envio Nativo ao Google Forms via Hidden Iframe)
     function enviarConfirmacaoPresenca(e) {
-      e.preventDefault();
       const nomeInput = document.getElementById('rsvpNome');
       const nome = nomeInput ? nomeInput.value.trim() : '';
-      if (!nome) return;
+      if (!nome) {
+        if (e && e.preventDefault) e.preventDefault();
+        return false;
+      }
 
       const rsvpBtn = document.getElementById('rsvpBtn');
       const rsvpBtnText = document.getElementById('rsvpBtnText');
@@ -1350,29 +1364,23 @@
       if (rsvpBtn) rsvpBtn.disabled = true;
       if (rsvpBtnText) rsvpBtnText.textContent = 'Enviando...';
 
-      // Configurações do Google Forms (se configurado em config.js)
+      // Sincroniza dinamicamente action e name com config.js se configurado
       const formsConfig = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.googleForms) || {};
-      const actionUrl = formsConfig.formActionUrl;
-      const entryId = formsConfig.entryNomeId || 'entry.nome';
-
-      if (actionUrl && actionUrl.includes('formResponse')) {
-        const formData = new FormData();
-        formData.append(entryId, nome);
-
-        fetch(actionUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: formData
-        }).then(() => {
-          mostrarSucessoRsvp(nome);
-        }).catch(() => {
-          mostrarSucessoRsvp(nome);
-        });
-      } else {
-        setTimeout(() => {
-          mostrarSucessoRsvp(nome);
-        }, 500);
+      const rsvpForm = document.getElementById('rsvpForm');
+      if (formsConfig.formActionUrl && rsvpForm) {
+        rsvpForm.action = formsConfig.formActionUrl;
       }
+      if (formsConfig.entryNomeId && nomeInput) {
+        nomeInput.name = formsConfig.entryNomeId;
+      }
+
+      // O navegador dispara o POST nativo para o iframe hidden_rsvp_iframe sem bloqueio de CORS.
+      // Exibe a confirmação visual após o disparo do envio
+      setTimeout(() => {
+        mostrarSucessoRsvp(nome);
+      }, 500);
+
+      return true;
     }
 
     function mostrarSucessoRsvp(nome) {
