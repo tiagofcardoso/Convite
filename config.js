@@ -14,6 +14,7 @@ const CONVITE_CONFIG = {
   // Chave Pix para receber presentes e contribuição do chopp
   chavePix: "06034129982", // CPF 060341299-82
   chavePixFormatada: "060341299-82",
+  pixCopiaECola: "00020101021126330014br.gov.bcb.pix0111060341299825204000053039865802BR5907GIOVANA6009PIRAQUARA62070503***63041A54",
 
   // Links de Integração com o Google Drive
   drive: {
@@ -28,6 +29,14 @@ const CONVITE_CONFIG = {
 
     // 4. Link do Manual do Convidado / Informações (Google Drive Doc ou PDF)
     manualUrl: "https://drive.google.com"
+  },
+
+  // Configuração para envio direto ao Google Forms (Planilha Google Sheets)
+  googleForms: {
+    // URL de submissão do formulário (ex: https://docs.google.com/forms/d/e/ID_DO_FORM/formResponse)
+    formActionUrl: "",
+    // ID do campo de Nome no formulário (ex: entry.123456789)
+    entryNomeId: ""
   },
 
   // Endereço do Evento
