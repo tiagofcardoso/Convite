@@ -1356,17 +1356,13 @@
       const entryId = formsConfig.entryNomeId || 'entry.nome';
 
       if (actionUrl && actionUrl.includes('formResponse')) {
-        const params = new URLSearchParams();
-        params.append(entryId, nome);
-        params.append('submit', 'Submit');
+        const formData = new FormData();
+        formData.append(entryId, nome);
 
         fetch(actionUrl, {
           method: 'POST',
           mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: params.toString()
+          body: formData
         }).then(() => {
           mostrarSucessoRsvp(nome);
         }).catch(() => {
