@@ -449,8 +449,8 @@
           Digite seu nome abaixo para confirmar sua presença e nos ajudar a preparar tudo com carinho.
         </p>
 
-        <!-- Iframe Oculto para Recepção Segura do Google Forms sem Recarregar -->
-        <iframe name="hidden_rsvp_iframe" id="hidden_rsvp_iframe" style="display:none; width:0; height:0; border:0;" title="Google Forms Submissao"></iframe>
+        <!-- Iframe Invisível Off-Screen Compatível com Safari/iOS e Chrome Android -->
+        <iframe name="hidden_rsvp_iframe" id="hidden_rsvp_iframe" src="about:blank" style="position:absolute; width:1px; height:1px; left:-9999px; top:-9999px; opacity:0; border:0; pointer-events:none;" tabindex="-1" aria-hidden="true" title="Google Forms Submissao"></iframe>
 
         <!-- Formulário Direto com Envio Nativo via Hidden Iframe -->
         <form id="rsvpForm" 
@@ -1361,9 +1361,6 @@
       const rsvpBtn = document.getElementById('rsvpBtn');
       const rsvpBtnText = document.getElementById('rsvpBtnText');
 
-      if (rsvpBtn) rsvpBtn.disabled = true;
-      if (rsvpBtnText) rsvpBtnText.textContent = 'Enviando...';
-
       // Sincroniza dinamicamente action e name com config.js se configurado
       const formsConfig = (window.CONVITE_CONFIG && window.CONVITE_CONFIG.googleForms) || {};
       const rsvpForm = document.getElementById('rsvpForm');
@@ -1374,11 +1371,17 @@
         nomeInput.name = formsConfig.entryNomeId;
       }
 
-      // O navegador dispara o POST nativo para o iframe hidden_rsvp_iframe sem bloqueio de CORS.
-      // Exibe a confirmação visual após o disparo do envio
+      // IMPORTANTE PARA MOBILE: Não desabilita o botão imediatamente no mesmo tick da thread,
+      // pois Safari iOS e Android Chrome abortam o envio se o botão for desabilitado antes do dispatch.
+      setTimeout(() => {
+        if (rsvpBtn) rsvpBtn.disabled = true;
+        if (rsvpBtnText) rsvpBtnText.textContent = 'Enviando...';
+      }, 50);
+
+      // Exibe a confirmação visual após o envio
       setTimeout(() => {
         mostrarSucessoRsvp(nome);
-      }, 500);
+      }, 600);
 
       return true;
     }
